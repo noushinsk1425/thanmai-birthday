@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thanmai's Magical Birthday ✨</title>
+<style>
+:root{--pink:#ffd9e8;--lav:#e9ddff;--ink:#634b70;--deep:#8d6aa5;--cream:#fffaf4}
+*{box-sizing:border-box} body{margin:0;font-family:Georgia,serif;color:var(--ink);background:linear-gradient(145deg,#fff2f7,#f1eaff 55%,#fff8e8);min-height:100vh;overflow-x:hidden}
+button,input{font:inherit} button{border:0;border-radius:999px;padding:13px 22px;background:linear-gradient(100deg,#f5a9cb,#bca5f4);color:#fff;font-weight:bold;cursor:pointer;box-shadow:0 7px 18px #b994d455}button:disabled{opacity:.5;cursor:not-allowed}
+main{max-width:760px;margin:auto;padding:26px 18px 60px}.panel{background:#ffffffd9;border:1px solid #fff;border-radius:28px;padding:clamp(22px,5vw,42px);box-shadow:0 18px 50px #a78bb522;text-align:center;backdrop-filter:blur(8px);margin:22px 0}
+h1{font-size:clamp(2.3rem,8vw,4.5rem);margin:10px 0;color:#9b76b5;font-weight:normal}h2{font-size:clamp(1.6rem,5vw,2.3rem);font-weight:normal;color:#9876ad;margin:8px 0 16px}
+p{line-height:1.7;font-size:1.06rem}.small{font-size:.9rem;color:#927d9b}.hidden{display:none!important}.eyebrow{letter-spacing:3px;text-transform:uppercase;font: .72rem Arial;color:#bd8cae}
+.sparkle{font-size:2rem;animation:float 3s ease-in-out infinite;display:inline-block}@keyframes float{50%{transform:translateY(-10px) rotate(8deg)}}
+.progress{height:7px;background:#f1e5f5;border-radius:9px;overflow:hidden;margin:18px 0}.bar{height:100%;width:0;background:linear-gradient(90deg,#f2a9c9,#b7a0f0);transition:width .4s}
+.answers{display:grid;gap:10px;margin:20px auto;max-width:460px}.answers button{background:#fff;color:#80658d;border:1px solid #eedcf1;box-shadow:none}.answers button:hover{background:#f9eaf5}
+.gift{font-size:6rem;cursor:pointer;display:inline-block;animation:float 2.4s infinite}.cake{font-size:7rem;line-height:1.2;margin:14px}.candles{font-size:2.5rem;letter-spacing:8px}.photo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:18px 0}.photo-grid img{width:100%;height:145px;object-fit:cover;border-radius:16px;border:4px solid white;box-shadow:0 5px 15px #9c79a533}
+textarea{width:100%;min-height:90px;border:1px solid #ead9ef;border-radius:15px;padding:12px;background:#fffaff;color:var(--ink);resize:vertical}
+input[type=file]{max-width:100%;font-size:.9rem}.letter{background:linear-gradient(135deg,#fff8fc,#fffdf6);border:1px dashed #d9afd1;border-radius:18px;padding:24px;text-align:left;white-space:pre-wrap;line-height:1.8}
+footer{text-align:center;color:#a38ba9;font: .8rem Arial;padding:12px}
+.confetti{position:fixed;top:-20px;z-index:10;pointer-events:none;animation:fall linear forwards;font-size:20px}@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.2}}
+#status{min-height:24px;color:#9a76ad;font: .9rem Arial}
+a{color:#9a76ad}
+</style>
+</head>
+<body>
+<main>
+<section class="panel" id="welcome">
+ <div class="eyebrow">A little bit of magic, made just for you</div><div class="sparkle">🦋 ✨ 🦋</div>
+ <h1>Happy Birthday,<br>Thanmai!</h1>
+ <p>Today, a tiny fairytale has been created for a very special person.</p>
+ <p>Are you ready to unlock your birthday magic?</p>
+ <button onclick="show('quiz')">Open your surprise ✨</button>
+ <p class="small">Best experienced with sound on 💗</p>
+</section>
+
+<section class="panel hidden" id="quiz">
+ <div class="eyebrow">Chapter one · The friendship spell</div><h2>A few little questions…</h2>
+ <div class="progress"><div class="bar" id="bar"></div></div>
+ <p id="question"></p><div class="answers" id="answers"></div><p id="feedback" class="small"></p>
+</section>
+
+<section class="panel hidden" id="memories">
+ <div class="eyebrow">Chapter two · Our little universe</div><h2>Memory garden 🌷</h2>
+ <p>Choose some favourite photos together. They'll appear here like little keepsakes.</p>
+ <input type="file" id="photos" accept="image/*" multiple>
+ <div class="photo-grid" id="photoGrid"></div>
+ <p class="small">Photos stay in this browser session; they are not uploaded anywhere.</p>
+ <button onclick="show('gift')">Continue to the magic gift 🎁</button>
+</section>
+
+<section class="panel hidden" id="gift">
+ <div class="eyebrow">Chapter three · A present from the stars</div><h2>Something is waiting for you…</h2>
+ <div class="gift" onclick="openGift()" role="button" aria-label="Open gift">🎁</div>
+ <p id="giftText">Tap the gift to open it!</p>
+ <div id="giftMessage" class="hidden"><h2>✨ A wish just for you ✨</h2><p>May your days be full of tiny adventures, belly laughs, kind people, and dreams that come true. You deserve all the magic in the world, Thanmai! 💗</p><button onclick="show('cake')">Go to your birthday cake 🎂</button></div>
+</section>
+
+<section class="panel hidden" id="cake">
+ <div class="eyebrow">Chapter four · Make a birthday wish</div><h2>One wish. A thousand possibilities.</h2>
+ <div class="cake">🎂</div><div class="candles" id="flames">🕯️ 🕯️ 🕯️</div>
+ <p>Take a deep breath, make a wish, then blow towards your microphone!</p>
+ <button id="micButton" onclick="startMic()">🎤 Blow out the candles</button>
+ <button onclick="blowCandles()" style="background:#c9b6df">Tap here instead</button>
+ <p id="status">Microphone is optional. You can use the tap button too.</p>
+ <div id="afterBlow" class="hidden"><h2>Wish sent to the stars! 🌟</h2><p>May this year bring you beautiful surprises.</p><button onclick="show('finale');celebrate()">See your grand finale 🎆</button></div>
+</section>
+
+<section class="panel hidden" id="finale">
+ <div class="eyebrow">The final chapter · Forever in my corner</div><div class="sparkle">🌙 💫 🌸</div>
+ <h1>You're a whole kind of magic, Thanmai!</h1>
+ <p>Thank you for being part of my story. I hope this new chapter is as lovely, bright and unforgettable as you are.</p>
+ <h2>🎙️ A voice note just for you</h2>
+ <p class="small">Record a short birthday message on your phone, save it as <b>thanmai-voice.mp3</b>, and upload it beside this HTML file when publishing. Then Thanmai can play it here.</p>
+ <audio controls preload="none" src="thanmai-voice.mp3">Your browser does not support audio playback.</audio>
+ <h2>💌 A little letter for you</h2>
+ <textarea id="letterText">Dear Thanmai,
+
+Happy birthday! I hope you always find reasons to smile, courage to chase your dreams, and people who make you feel loved. Thank you for all the memories, laughter and little moments that make our friendship special.
+
+No matter how busy life gets, I hope we keep making beautiful memories together.
+
+With lots of love,
+Your best friend 💗</textarea>
+ <p class="small">You can edit this letter before sharing the page.</p>
+ <button onclick="window.print()">Save this birthday memory / Print</button>
+ <p class="small">You can also share the website link with Thanmai once you publish it.</p>
+</section>
+<footer>Made with friendship, stardust & lots of love ✨</footer>
+</main>
+<script>
+const questions=[
+ {q:"What makes our friendship extra special?",a:["The laughs and silly moments","Our secret memories","All of the above 💗"],correct:2},
+ {q:"What's the most important birthday ingredient?",a:["Cake 🍰","A thousand wishes 🌟","People who care about you 💕"],correct:2},
+ {q:"Ready for a year full of adventures?",a:["YESSS! ✨","Absolutely! 🦋","Let's make it magical!"],correct:2},
+ {q:"One final question: who deserves the happiest birthday?",a:["Thanmai! 🎀","Thanmai! 💖","THANMAI!! 🎉"],correct:2}
+];
+let qi=0;
+function show(id){document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});if(id==='quiz')renderQuestion()}
+function renderQuestion(){let q=questions[qi];document.getElementById('question').textContent=q.q;document.getElementById('bar').style.width=(qi/questions.length*100)+'%';document.getElementById('feedback').textContent='';let box=document.getElementById('answers');box.innerHTML='';q.a.forEach((a,i)=>{let b=document.createElement('button');b.textContent=a;b.onclick=()=>{document.getElementById('feedback').textContent='That answer is full of magic! ✨';setTimeout(()=>{qi++;if(qi<questions.length)renderQuestion();else show('memories')},650)};box.appendChild(b)})}
+document.getElementById('photos').addEventListener('change',e=>{let grid=document.getElementById('photoGrid');grid.innerHTML='';[...e.target.files].slice(0,12).forEach(f=>{let img=document.createElement('img');img.src=URL.createObjectURL(f);grid.appendChild(img)})});
+function openGift(){document.getElementById('giftText').textContent='POP! A little birthday magic just for you!';document.querySelector('.gift').textContent='💝';document.getElementById('giftMessage').classList.remove('hidden');confetti()}
+function blowCandles(){document.getElementById('flames').textContent='💨  💨  💨';document.getElementById('status').textContent='You did it! Your birthday wish is on its way. 💗';document.getElementById('micButton').classList.add('hidden');document.getElementById('afterBlow').classList.remove('hidden');confetti()}
+let audioContext,stream,raf,blowing=false;
+async function startMic(){try{stream=await navigator.mediaDevices.getUserMedia({audio:true});audioContext=new (window.AudioContext||window.webkitAudioContext)();let source=audioContext.createMediaStreamSource(stream),analyser=audioContext.createAnalyser();analyser.fftSize=256;source.connect(analyser);let data=new Uint8Array(analyser.frequencyBinCount);document.getElementById('status').textContent='Listening… blow gently towards your microphone!';let start=0;function listen(){analyser.getByteTimeDomainData(data);let energy=data.reduce((s,v)=>s+Math.abs(v-128),0)/data.length;if(energy>13){if(!start)start=Date.now();if(Date.now()-start>650){stopMic();blowCandles();return}}else start=0;raf=requestAnimationFrame(listen)}listen()}catch(e){document.getElementById('status').textContent='Microphone permission was not available. Please use the tap button instead.'}}
+function stopMic(){if(raf)cancelAnimationFrame(raf);if(stream)stream.getTracks().forEach(t=>t.stop());if(audioContext)audioContext.close()}
+function confetti(){const bits=['🎉','✨','💗','🌸','🦋','⭐'];for(let i=0;i<55;i++){let el=document.createElement('div');el.className='confetti';el.textContent=bits[Math.floor(Math.random()*bits.length)];el.style.left=Math.random()*100+'vw';el.style.animationDuration=(2+Math.random()*3)+'s';el.style.fontSize=(14+Math.random()*18)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),5200)}}
+function celebrate(){confetti();setTimeout(confetti,900)}
+</script>
+</body>
+</html>
